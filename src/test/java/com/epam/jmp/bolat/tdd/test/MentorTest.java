@@ -47,4 +47,25 @@ public class MentorTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(content().json("[{\"id\":1001,\"name\":\"John\"},{\"id\":1002,\"name\":\"Mike\"},{\"id\":1003,\"name\":\"Susan\"},{\"id\":1004,\"name\":\"Bolat\"}]"));
 
     }
+
+    @Test
+    public void shouldReturnDefaultMessageMentee() throws Exception {
+        this.mockMvc.perform(get("/mentee")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Hello from MenteeController")));
+    }
+
+    @Test
+    public void shouldReturnDefaultMentees() throws Exception {
+        this.mockMvc.perform(get("/mentee/all")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(content().json("[{\"id\":1001,\"name\":\"Smith\"},{\"id\":1002,\"name\":\"Phil\"},{\"id\":1003,\"name\":\"Max\"}]"));
+    }
+
+    @Test
+    public void shouldAddMenteeAndReturn4Mentees() throws Exception {
+        this.mockMvc.perform(post("/mentee/add").contentType(MediaType.APPLICATION_JSON_UTF8).content("{\"name\":\"Askhat\",\"id\":0}")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string("success"));
+        this.mockMvc.perform(get("/mentee/all")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(content().json("[{\"id\":1001,\"name\":\"Smith\"},{\"id\":1002,\"name\":\"Phil\"},{\"id\":1003,\"name\":\"Max\"},{\"id\":1004,\"name\":\"Askhat\"}]"));
+
+    }
 }
