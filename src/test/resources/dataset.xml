@@ -1,0 +1,15 @@
+<!DOCTYPE dataset SYSTEM "dataset.dtd">
+<dataset>
+    <table name="Car">
+        <column>ID</column>
+        <column>Model</column>
+        <row>
+            <value>1</value>
+            <value>BMW</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>Opel</value>
+        </row>
+    </table>
+</dataset>
