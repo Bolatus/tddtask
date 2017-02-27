@@ -21,13 +21,17 @@ public class MenteeService {
     @Autowired
     MenteeRepository menteeRepository;
 
+    @Autowired
+    MentorRepository mentorRepository;
+
+    @Autowired
+    MentorService mentorService;
+
     public List<Mentee> getAllMentees(){
         return  menteeRepository.findAll();
     }
 
     public void addMentee(Mentee m){
-        MenteeService.iditerator++;
-        m.setId(MenteeService.iditerator);
         menteeRepository.save(m);
     }
 
@@ -39,11 +43,24 @@ public class MenteeService {
         menteeRepository.save(m);
     }
 
-    @PostConstruct
-    public void fillRandomData(){
-        addMentee(new Mentee(null, "Smith"));
-        addMentee(new Mentee(null, "Phil"));
-        addMentee(new Mentee(null, "Max"));
-        System.out.println("Added custom data.");
+
+    public boolean setMentor(Long mentorId, Long menteeId){
+        try {
+            Mentor mentor = mentorRepository.getOne(mentorId);
+            Mentee mentee = menteeRepository.getOne(menteeId);
+            mentee.setMentor(mentor);
+            menteeRepository.save(mentee);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
+//    @PostConstruct
+//    public void fillRandomData(){
+//        Mentor m = mentorRepository.findOneByName("Mike");
+//        addMentee(new Mentee(null, "Smith",m));
+//        addMentee(new Mentee(null, "Phil",m));
+//        addMentee(new Mentee(null, "Max",m));
+//        System.out.println("Added custom data.");
+//    }
 }

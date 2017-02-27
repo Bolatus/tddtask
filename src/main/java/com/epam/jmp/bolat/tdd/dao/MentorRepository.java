@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
  * Created by dom on 25.02.2017.
  */
 public interface MentorRepository  extends JpaRepository<Mentor,Long> {
+    Mentor findOneByName(String name);
 }

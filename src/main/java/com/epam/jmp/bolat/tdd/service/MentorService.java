@@ -14,7 +14,6 @@ import java.util.List;
 @Service
 public class MentorService {
 
-    public static Long iditerator = 1000L;
 
     @Autowired
     MentorRepository mentorRepository;
@@ -24,8 +23,6 @@ public class MentorService {
     }
 
     public void addMentor(Mentor m){
-        MentorService.iditerator++;
-        m.setId(MentorService.iditerator);
         mentorRepository.save(m);
     }
 
@@ -37,11 +34,11 @@ public class MentorService {
         mentorRepository.save(m);
     }
 
-    @PostConstruct
-    public void fillRandomData(){
-        addMentor(new Mentor(null, "John"));
-        addMentor(new Mentor(null, "Mike"));
-        addMentor(new Mentor(null, "Susan"));
-        System.out.println("Added custom data.");
-    }
+//    @PostConstruct
+//    public void fillRandomData(){
+//        addMentor(new Mentor(null, "John"));
+//        addMentor(new Mentor(null, "Mike"));
+//        addMentor(new Mentor(null, "Susan"));
+//        System.out.println("Added custom data.");
+//    }
 }

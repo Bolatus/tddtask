@@ -1,8 +1,7 @@
 package com.epam.jmp.bolat.tdd.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by dom on 25.02.2017.
@@ -11,10 +10,22 @@ import javax.persistence.Id;
 public class Mentor {
 
     @Id
-   @Column(name = "id")
+    @SequenceGenerator(name="mentor_id_seq", sequenceName="mentor_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="mentor_id_seq")
+    @Column(name = "id")
     private Long id;
     @Column(name = "name")
     private String name;
+    @OneToMany(mappedBy = "mentor")
+    private List<Mentee> mentees;
+
+    public List<Mentee> getMentees() {
+        return mentees;
+    }
+
+    public void setMentees(List<Mentee> mentees) {
+        this.mentees = mentees;
+    }
 
     public Long getId() {
         return id;

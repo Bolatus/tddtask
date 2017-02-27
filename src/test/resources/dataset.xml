@@ -1,15 +1,5 @@
-<!DOCTYPE dataset SYSTEM "dataset.dtd">
+<?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-    <table name="Car">
-        <column>ID</column>
-        <column>Model</column>
-        <row>
-            <value>1</value>
-            <value>BMW</value>
-        </row>
-        <row>
-            <value>2</value>
-            <value>Opel</value>
-        </row>
-    </table>
+    <MENTOR ID="1" NAME="Igor"/>
+    <MENTOR ID="2" NAME="Arman"/>
 </dataset>

@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MenteeController {
@@ -48,4 +50,16 @@ public class MenteeController {
         menteeService.deleteMentee(id);
         return "success";
     }
+
+    @RequestMapping(value = "/mentee/assign-mentor", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String,String> assignMentor(@RequestParam Long mentor, @RequestParam Long mentee ) {
+        HashMap<String,String> answer = new HashMap<String,String>();
+        if (menteeService.setMentor(mentor,mentee))
+            answer.put("result","success");
+        else
+            answer.put("result","fail");
+        return answer;
+    }
+
 }

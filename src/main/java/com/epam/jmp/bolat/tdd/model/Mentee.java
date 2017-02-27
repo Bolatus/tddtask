@@ -1,8 +1,6 @@
 package com.epam.jmp.bolat.tdd.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by dom on 25.02.2017.
@@ -11,10 +9,23 @@ import javax.persistence.Id;
 public class Mentee {
 
     @Id
-   @Column(name = "id")
+    @SequenceGenerator(name="mentee_id_seq", sequenceName="mentee_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="mentee_id_seq")
+    @Column(name = "id")
     private Long id;
     @Column(name = "name")
     private String name;
+    @ManyToOne(fetch= FetchType.EAGER)
+    @JoinColumn(name="mentor_id")
+    private Mentor mentor;
+
+    public Mentor getMentor() {
+        return mentor;
+    }
+
+    public void setMentor(Mentor mentor) {
+        this.mentor = mentor;
+    }
 
     public Long getId() {
         return id;
@@ -35,9 +46,10 @@ public class Mentee {
     public Mentee(){
 
     }
-    public Mentee(Long id, String name) {
+    public Mentee(Long id, String name, Mentor mentor) {
         this.id = id;
         this.name = name;
+        this.mentor = mentor;
     }
 
     @Override
@@ -45,6 +57,7 @@ public class Mentee {
         return "Mentee{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", mentor=" + mentor +
                 '}';
     }
 }

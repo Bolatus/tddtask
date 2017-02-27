@@ -1,28 +1,46 @@
 package com.epam.jmp.bolat.tdd.test;
 
-import org.dbunit.PropertiesBasedJdbcDatabaseTester;
-import org.dbunit.dataset.IDataSet;
-import org.junit.Before;
-import org.dbunit.dataset.xml.FlatXmlDataSet;
+import com.epam.jmp.bolat.tdd.app.Application;
+import com.epam.jmp.bolat.tdd.model.Mentor;
+import com.epam.jmp.bolat.tdd.service.MentorService;
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-import java.io.FileInputStream;
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
+
 
 /**
  * Created by dom on 26.02.2017.
  */
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class)
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class})
+@DatabaseSetup("/dataset.xml")
 public class DBunitTest {
 
-    @Before
-    public void init()    {
-        System.setProperty( PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.hsqldb.jdbcDriver" );
-        System.setProperty( PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, "jdbc:hsqldb:sample" );
-        System.setProperty( PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "sa" );
-        System.setProperty( PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, "" );
-        // System.setProperty( PropertiesBasedJdbcDatabaseTester.DBUNIT_SCHEMA, "" );
+    @Autowired
+    MentorService mentorService;
+    @Test
+    public void contextLoads() {
+        List<Mentor> all = mentorService.getAllMentors();
+        assertThat(all, is(notNullValue()));
+        assertThat(all.size(), is(2));
     }
 
-    protected IDataSet getDataSet() throws Exception
-    {
-        return new FlatXmlDataSet(new FileInputStream("dataset.xml"));
-    }
 }
