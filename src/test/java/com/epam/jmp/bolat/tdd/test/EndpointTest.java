@@ -75,7 +75,7 @@ public class EndpointTest {
         mentees.add(m);
         Mockito.when(menteeService.getAllMentees()).thenReturn(mentees);
         this.mockMvc.perform(get("/mentee/all")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(content().json("[{\"id\":1000,\"name\":\"Batman\"}]"));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(content().json("[{\"id\":1000,\"name\":\"Batman1\"}]"));
     }
 
    @Test
