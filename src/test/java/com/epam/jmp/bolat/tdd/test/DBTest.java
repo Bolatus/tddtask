@@ -32,7 +32,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
 @DatabaseSetup("/dataset.xml")
-public class DBunitTest {
+public class DBTest {
 
     @Autowired
     MentorService mentorService;

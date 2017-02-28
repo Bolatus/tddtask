@@ -31,8 +31,13 @@ public class MenteeService {
         return  menteeRepository.findAll();
     }
 
-    public void addMentee(Mentee m){
-        menteeRepository.save(m);
+    public boolean addMentee(Mentee m){
+        try{
+            menteeRepository.save(m);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 
     public void deleteMentee(Long id){

@@ -45,3 +45,13 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
+
+task unitTest(type: Test) {
+    include '**/*UnitTest*'
+}
+task dbTest(type: Test) {
+    include '**/*DBTest*'
+}
+task endpointTest(type: Test) {
+    include '**/*EndpointTest*'
+}

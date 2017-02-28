@@ -32,9 +32,13 @@ public class MenteeController {
 
     @RequestMapping(value = "/mentee/add", method = RequestMethod.POST)
     public @ResponseBody
-    String addMentee( @RequestBody Mentee mentee) {
-        menteeService.addMentee(mentee);
-        return "success";
+    Map<String,String> addMentee( @RequestBody Mentee mentee) {
+        HashMap<String,String> answer = new HashMap<String,String>();
+        if (menteeService.addMentee(mentee))
+            answer.put("result","success");
+        else
+            answer.put("result","fail");
+        return answer;
     }
 
     @RequestMapping(value = "/mentee/update", method = RequestMethod.POST)

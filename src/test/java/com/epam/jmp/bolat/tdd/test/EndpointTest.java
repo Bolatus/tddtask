@@ -69,7 +69,7 @@ public class EndpointTest {
     }
 
     @Test
-    public void shouldReturnDefaultMentors() throws Exception {
+    public void shouldReturnDefaultMentees() throws Exception {
         Mentee m =  new Mentee(1000L,"Batman",null);
         List<Mentee> mentees = new ArrayList<Mentee>();
         mentees.add(m);
@@ -79,10 +79,11 @@ public class EndpointTest {
     }
 
    @Test
-    public void shouldAddMentorAndReturn4Mentors() throws Exception {
+    public void shouldAddMenteeAndReturn4Mentees() throws Exception {
+       Mockito.when(menteeService.addMentee(anyObject())).thenReturn(true);
 
-        this.mockMvc.perform(post("/mentee/add").contentType(MediaType.APPLICATION_JSON_UTF8).content("{\"name\":\"Bolat\",\"id\":0}")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string("success"));
+        this.mockMvc.perform(post("/mentee/add").contentType(MediaType.APPLICATION_JSON_UTF8).content("{\"name\":\"Talgat\",\"id\":0}")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().json("{\"result\":\"success\"}"));
     }
 
     @Test
